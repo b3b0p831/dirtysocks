@@ -31,17 +31,13 @@ var tcpCmd = &cobra.Command{
 
 		if err == nil && len(data) > 0 {
 			data_bytes := []byte(data)
-			data_bytes = append(data_bytes, '\x0a', '\x0a')
+			data_bytes = append(data_bytes, '\x0d', '\x0a')
 			c, e := con.Write(data_bytes)
 			if e != nil {
 				errorCleanup(e, con)
 			}
 			fmt.Println()
-			wide_print_col, err := cmd.Flags().GetInt("wide")
-			if err != nil{
-				pretyPrintBuf(data_bytes, printCol)
-			}
-				pretyPrintBuf(data_bytes, wide_print_col)
+			pretyPrintBuf(data_bytes)
 
 			fmt.Printf("Bytes written: %d\n\n", c)
 		}
@@ -62,7 +58,7 @@ var tcpCmd = &cobra.Command{
 			c, e = con.Read(buf)
 		}
 
-		pretyPrintBuf(total, printCol)
+		pretyPrintBuf(total)
 		fmt.Printf("Bytes read: %d\n\n", len(total))
 
 		con.Close()
@@ -78,7 +74,6 @@ func errorCleanup(e error, con net.Conn) {
 func init() {
 	rootCmd.AddCommand(tcpCmd)
 	tcpCmd.Flags().String("data", "", "Data to send before receiving data")
-	tcpCmd.Flags().Int("wide", 8, "How wide? Default 8.")
 
 	tcpCmd.Args = cobra.ExactArgs(2)
 

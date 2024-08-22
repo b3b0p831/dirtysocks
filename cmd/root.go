@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"golang.org/x/term"
+	"unicode"
 )
 
 var printCol int = 20
@@ -32,9 +34,21 @@ func Execute() {
 
 }
 
-func pretyPrintBuf(sock_data []byte, n_wide int) {
+func getTermSize() (width int, height int){
+	width, height, err := term.GetSize(int(os.Stdout.Fd()))
+    	if err != nil {
+        	fmt.Println("Error getting terminal size:", err)
+    	}
+    	return width, height
+}
+
+func pretyPrintBuf(sock_data []byte) {
 	last_index := 0
+	w, _ := getTermSize()
+
+	n_wide := int(.10 * float64(w)) // Ascii dump should take up 10% of our screen
 	for last_index < len(sock_data) {
+
 		for i := last_index; i < last_index+n_wide && i < len(sock_data); i++ {
 			fmt.Printf("%02x ", sock_data[i])
 		}
@@ -61,7 +75,12 @@ func pretyPrintBuf(sock_data []byte, n_wide int) {
 
 			}
 
+		if unicode.IsPrint(rune(chr)){
 			fmt.Printf(" %s ", string(chr))
+		}else{
+			fmt.Printf("   ")
+		}
+
 		}
 
 		fmt.Println()
@@ -70,3 +89,4 @@ func pretyPrintBuf(sock_data []byte, n_wide int) {
 	}
 
 }
+
