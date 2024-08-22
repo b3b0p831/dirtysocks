@@ -2,6 +2,8 @@
 
 ![Go Version](https://img.shields.io/github/go-mod/go-version/b3b0p831/dirtysocks)
 ![License](https://img.shields.io/github/license/b3b0p831/dirtysocks)
+![image](/imgs/dirtysocks)
+
 
 Dirty Socks is a simple data visualizer written in Go. It reads binary or ASCII data from either a file or a TCP connection and prints the decoded ASCII representation to the console.
 
