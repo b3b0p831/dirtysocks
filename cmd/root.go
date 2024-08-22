@@ -11,15 +11,20 @@ var printCol int = 20
 var BUF_SIZE int = 2048
 
 var rootCmd = &cobra.Command{
-	Use:   "dirtysocks",
+	Use: "dirtysocks",
 	Short: "A simple data visualizer for your dirty socks",
 	Long:  `[+]------------------Dan's Dirty Socks------------------[+]`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// Do Stuff Here
+ 		if len(args) == 0 {
+        		cmd.Help()  // This will print the help menu
+        		os.Exit(0)  // Exit the program after printing help
+    		}
 	},
 }
 
 func Execute() {
+
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
