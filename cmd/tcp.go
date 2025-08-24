@@ -37,7 +37,7 @@ var tcpCmd = &cobra.Command{
 				errorCleanup(e, con)
 			}
 			fmt.Println()
-			pretyPrintBuf(data_bytes)
+			prettyPrintBuf(data_bytes)
 
 			fmt.Printf("Bytes written: %d\n\n", c)
 		}
