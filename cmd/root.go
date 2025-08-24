@@ -42,7 +42,7 @@ func getTermSize() (width int, height int){
     	return width, height
 }
 
-func pretyPrintBuf(sock_data []byte) {
+func prettyPrintBuf(sock_data []byte) {
 	last_index := 0
 	w, _ := getTermSize()
 
