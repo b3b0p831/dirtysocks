@@ -32,7 +32,7 @@ var fileCmd = &cobra.Command{
 			os.Exit(-1)
 		}
 
-		pretyPrintBuf(fileData)
+		prettyPrintBuf(fileData)
 		fmt.Printf("\nBytes read: %d\n\n", len(fileData))
 	},
 }
